@@ -38,33 +38,44 @@ Frontend (React + Vite) <--> Backend (Python + Flask) <--> Database (MongoDB/Mon
 
 ## Setup
 
-To set up this project, you will need to install the required packages for both the backend and the frontend.
+This project consists of a backend and a frontend, each with its own set of dependencies.
 
-For the backend, navigate to the `backend` directory and run:
+### Backend
 
-```
-pip install -r requirements.txt
-```
+The backend is a Python application that uses Flask. To set up the backend:
 
-For the frontend, navigate to the `frontend` directory and run:
+1. Navigate to the `backend` directory.
+2. If you haven't already, create a virtual environment: `python3 -m venv venv`
+3. Activate the virtual environment:
+   - On macOS and Linux: `source venv/bin/activate`
+   - On Windows: `.\venv\Scripts\activate`
+4. Install the Python dependencies: `pip install -r requirements.txt`
 
-```
-npm install
-```
+### Frontend
+
+The frontend is a React application that uses Vite. To set up the frontend:
+
+1. Navigate to the `frontend` directory.
+2. Install the Node.js dependencies: `npm install`
 
 ## Running the Project
 
-To run the backend, navigate to the `backend` directory and run:
+### Backend
 
-```
-python main.py
-```
+To run the backend:
 
-To run the frontend, navigate to the `frontend` directory and run:
+1. Make sure you're in the `backend` directory.
+2. Make sure the virtual environment is activated.
+3. Run the application: `python main.py`
 
-```
-npm start
-```
+### Frontend
+
+To run the frontend:
+
+1. Navigate to the `frontend` directory.
+2. Run the application: `npm run dev`
+
+Remember to deactivate the virtual environment when you're done working on the project: `deactivate` on macOS/Linux, `deactivate.bat` on Windows.
 
 ## Testing
 
