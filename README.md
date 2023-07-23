@@ -40,16 +40,14 @@ Frontend (React + Vite) <--> Backend (Python + Flask) <--> Database (MongoDB/Mon
 
 This project consists of a backend and a frontend, each with its own set of dependencies.
 
-### Backend
+## Backend Setup
 
-The backend is a Python application that uses Flask. To set up the backend:
-
-1. Navigate to the `backend` directory.
-2. If you haven't already, create a virtual environment: `python3 -m venv venv`
-3. Activate the virtual environment:
-   - On macOS and Linux: `source venv/bin/activate`
-   - On Windows: `.\venv\Scripts\activate`
-4. Install the Python dependencies: `pip install -r requirements.txt`
+1. Install Python: `brew install python`
+2. Navigate to the `backend` directory.
+3. Create a virtual environment: `python3 -m venv venv`
+4. Activate the virtual environment: `source venv/bin/activate`
+5. Install Flask: `pip install flask`
+6. Install the Python dependencies: `pip install -r requirements.txt`
 
 ### Frontend
 
