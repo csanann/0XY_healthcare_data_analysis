@@ -103,7 +103,4 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For any inquiries or collaboration opportunities, please reach out to me on 
-```
-[LinkedIn](https://www.linkedin.com/in/chayada-s-1a026220/).
-```
+For any inquiries or collaboration opportunities, please reach out to me on [LinkedIn](https://www.linkedin.com/in/chayada-s-1a026220/).
