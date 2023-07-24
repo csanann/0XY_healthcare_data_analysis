@@ -20,6 +20,7 @@ The data for this project is sourced from the [Patient Treatment Classification 
 - Backend: Python and Flask
 - Front-end Interface: React and Vite
 - TDD, BDD: pytest for unit tests, integration tests, and functional tests. BDD: BDD framework like `behave` or `pytest-bdd`. Code coverage is measured with `pytest-cov`.
+- Continuous Integration/Continuous Deployment (DI/CD): GitHub Action
 
 ## Project Structure
 
@@ -90,6 +91,10 @@ npm test
 ```
 
 for the frontend.
+
+## Continuous Integration/Continuous Deployment (CI/CD)
+
+We use GitHub Actions for our CI/CD pipeline. This help us automate our software development practices with configuration files and workflows that you can set up in your repository.
 
 ## Contributing
 
