@@ -4,41 +4,104 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv('data-ori.csv')
+def load_data(file_path):
+  df = pd.read_csv(file_path)
+  return df
 
-print(df.head())
-print(df.tail())
-print(df.columns)
-print(df.isnull().sum())
-
-#check which columns in df are binary
-binary_cols = [col for col in df.columns if df[col].nunique() == 2]
-print(binary_cols)
-
-# we have to convert datatype from binary to numerical
-# each unique value is assigned as integer value using map function.
-df['SEX'] = df['SEX'].map({'F': 0, 'M': 1})
-df['SOURCE'] = df['SOURCE'].map({'out': 0, 'in': 1})
-
-# see basic stat
-print(df.describe())
+def convert_binary_to_numerical(df):
+  # we have to convert datatype from binary to numerical
+  # each unique value is assigned as integer value using map function.
+  df['SEX'] = df['SEX'].map({'F': 0, 'M': 1})
+  df['SOURCE'] = df['SOURCE'].map({'out': 0, 'in': 1})
+  return df
 
 # examining the basic statistic of the dataset is done. 
 #EDA, visualise the data to understand the distributions of individual variables 
 # and relationships between different part of variables.abs
 
-#histograms AGE
-plt.figure(figsize = (8, 6))
-plt.hist(df['AGE'], bins = 20, color = 'skyblue', edgecolor = 'black' )
-plt.xlabel('Age')
-plt.ylabel('Frequency')
-plt.title('Age Distribution')
-plt.grid(True)
-plt.savefig('age_histograme.png')
-plt.show()
+def plot_age_histogram(df):
+  #histograms AGE
+  plt.figure(figsize = (8, 6))
+  plt.hist(df['AGE'], bins = 20, color = 'skyblue', edgecolor = 'black' )
+  plt.xlabel('Age')
+  plt.ylabel('Frequency')
+  plt.title('Age Distribution')
+  plt.grid(True)
+  plt.savefig('age_histograme.png')
+  plt.show()
 
 #Box plots HAEMATOCRIT
-
+def plot_haematocrit_boxplot(df):
+  plt.figure(figsize = (8, 6))
+  sns.boxplot(df['HAEMATOCRIT'])
+  plt.xlabel('HAEMATOCRIT')
+  plt.ylabel('Value')
+  plt.title('HAEMATOCRIT Box Plot')
+  plt.grid(True)
+  plt.savefig('heametocrit_boxplot.png')
+  plt.show()
+  
+def identify_outliers(df, column):
+  #check outliers
+  Q1 = df['HAEMATOCRIT'].quantile(0.25)
+  Q3 = df['HAEMATOCRIT'].quantile(0.75)
+  IQR = Q3 = Q1
+  #any data point falls below or above is a potential outliers
+  outliers = df[(df['HAEMATOCRIT'] < Q1 - 1.5 * IQR) | (df['HAEMATOCRIT'] > Q3 + 1.5 * IQR)]
+  if outliers.empty:
+    print("No outliers found.")
+    return pd.DataFrame(columns = [column])
+  else:
+    print("Potential outliers:")
+    return(outliers)
+  
+  #a violin plot
+  plt.figure(figsize = (10, 6))
+  sns.violinplot(x = df[column])
+  plt.title('Violoin plot of ' + column)
+  plt.show()
+  
 #scatter plots HAEMATOCRIT and HAEMOGLOBINS
+def plot_haematocrit_vs_haemoglobins_scatter(df):
+  plt.figure(figsize = (8, 6))
+  plt.scatter(df['HAEMATOCRIT'], df['HAEMOGLOBINS'])
+  plt.xlabel('HAEMATOCRIT')
+  plt.ylabel('HAEMOGLOBINS')
+  plt.title('HAEMATOCRIT_VS_HAEMOGLOBINS Scatter Plot')
+  plt.grid(True)
+  plt.savefig('haematocrit_vs_haemoglobins_scatter.png')
+  plt.show()
 
 #correlation matrix
+def plot_correlation_matrix(df):
+  corr_matrix = df.corr()
+  print(corr_matrix)
+  
+  plt.figure(figsize = (10, 8))
+  sns.heatmap(df.corr(), annot = True, fmt = ".2f")
+  plt.title('Correlation Matrix')
+  plt.savefig('correlation_matrix.png')
+  plt.show()
+
+if __name__ == '__main__':
+  data_file_path = 'data-ori.csv'
+  df = load_data(data_file_path)
+  df = convert_binary_to_numerical(df)
+
+  print(df.head())
+  print(df.tail())
+  print(df.columns)
+  print(df.isnull().sum())
+  #check which columns in df are binary
+  binary_cols = [col for col in df.columns if df[col].nunique() == 2]
+  print(binary_cols)
+  # see basic stat
+  print(df.describe())
+  
+  plot_age_histogram(df)
+  plot_haematocrit_boxplot(df)
+  outliers = identify_outliers(df, 'HAEMATOCRIT')
+  print("Potential outliers:")
+  print(outliers)
+  plot_haematocrit_vs_haemoglobins_scatter(df)
+  plot_correlation_matrix(df)
