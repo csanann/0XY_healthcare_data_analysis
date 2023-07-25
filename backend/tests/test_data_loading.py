@@ -10,7 +10,7 @@ import pandas as pd
 from data_loading import load_data
  
 def test_load_data():
-  df = load_data('data-ori.csv')
+  df = load_data('data/data-ori.csv')
   assert isinstance(df, pd.DataFrame)
   assert df.shape[0] > 0
   #assert df.shape[1] > 0
