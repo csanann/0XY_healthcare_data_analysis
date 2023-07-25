@@ -11,7 +11,8 @@ import pandas as pd
 from data_loading import load_data
  
 def test_load_data():
-  
+  print("Current working directory:", os.getcwd())
+  print("Contents of the 'data' directory:", os.listdir('data'))
   if sys.platform.startswith("win"):
     data_file_path = Path('data/data-ori.csv')
   else:
