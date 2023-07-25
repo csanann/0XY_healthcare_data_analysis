@@ -13,12 +13,12 @@ from data_loading import load_data
 def test_load_data():
   print("Current working directory:", os.getcwd())
   print("Contents of the 'data' directory:", os.listdir('data'))
+  
   if sys.platform.startswith("win"):
     data_file_path = Path('data/data-ori.csv')
   else:
     data_file_path = Path('data/data-ori.csv')
     
-  data_file_path = Path('data/data-ori.csv')
   df = load_data(data_file_path)
   assert isinstance(df, pd.DataFrame)
   assert df.shape[0] > 0
