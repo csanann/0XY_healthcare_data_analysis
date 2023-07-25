@@ -1,5 +1,4 @@
 blinker==1.6.2
-boltons @ file:///home/conda/feedstock_root/build_artifacts/boltons_1677499911949/work
 certifi==2023.5.7
 cffi @ file:///Users/runner/miniforge3/conda-bld/cffi_1671179432479/work
 charset-normalizer @ file:///home/conda/feedstock_root/build_artifacts/charset-normalizer_1678108872112/work
