@@ -14,7 +14,19 @@ def load_data_to_db(data_filepath):
   
   records = df.to_dict(orient = 'records')
   db.health_records.insert_many(records)
-  print("Data loaded into MongoDB successfully!")
+  print("Data loaded into MongoDB successfully and you are happy!")
+  
+def get_all_records():
+  client = MongoClient('mongodb://localhost:27017/')
+  db = client['health_records_db']
+  records = db.health_records.find()
+  return records
+  
+def get_record_by_id(id):
+  client = MongoClient('mongodb://localhost:27017/')
+  db = client['health_records_db']
+  record = db.health_records.find_one({'patient_id': id})
+  return record
   
 if __name__ == "__main__":
   load_data_to_db("data/data-ori.csv")
