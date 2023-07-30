@@ -2,36 +2,32 @@
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from mongodb_interaction import get_all_records, get_record_by_id
 
 app = Flask(__name__)
 CORS(app)
 
-# import data analysis and MongoDB connection
-# from .data_loading import load_data
-#from .data_analysis import analyse_data
-#from .database import get_all_records, get_record_by_id
-
 @app.route('/')
 def home():
-   # records = get_all_records()
-    # return jsonify(records)
     return "Welcome to the Heathcare Data Analysis API!"
 
 @app.route('/records', methods = ['GET'])
 def records():
-   
-    return "This endpoint will return all records."
+    records = get_all_records()
+    return jsonify(records)
   
 @app.route('/record/<id>', methods = ['GET'])  
 def record(id):
-    #record = get_record_by_id(id)
-    # return jsonify(record)
-    return f"This endpoint will return record {id}."
+    record = get_record_by_id(id)
+    # return f"This endpoint will return record {id}."
+    return jsonify(record)
     
 @app.route('/analyse', methods = ['GET'])
 def analyse():
-    
-    return "This endpoint will return analysis results."
+    # df = load_data('data/data-ori.csv')
+    # histogram_data = get_age_histogram_data(df)
+    # return jsonify(histogram_data)
+    return " This endpoint will return the analysis result."
     
 if __name__=='__main__':
     app.run(host = '0.0.0.0', debug = True)
