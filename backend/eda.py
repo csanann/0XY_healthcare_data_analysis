@@ -9,7 +9,7 @@ def load_data(file_path):
   return df
 
 def convert_binary_to_numerical(df):
-  # we have to convert datatype from binary to numerical
+  # convert datatype from binary to numerical
   # each unique value is assigned as integer value using map function.
   df['SEX'] = df['SEX'].map({'F': 0, 'M': 1})
   df['SOURCE'] = df['SOURCE'].map({'out': 0, 'in': 1})
@@ -43,23 +43,19 @@ def plot_haematocrit_boxplot(df):
   
 def identify_outliers(df, column):
   #check outliers
-  Q1 = df['HAEMATOCRIT'].quantile(0.25)
-  Q3 = df['HAEMATOCRIT'].quantile(0.75)
-  IQR = Q3 = Q1
+  Q1 = df[column].quantile(0.25)
+  Q3 = df[column].quantile(0.75)
+  IQR = Q3 - Q1
   #any data point falls below or above is a potential outliers
-  outliers = df[(df['HAEMATOCRIT'] < Q1 - 1.5 * IQR) | (df['HAEMATOCRIT'] > Q3 + 1.5 * IQR)]
+  outliers = df[(df[column] < Q1 - 1.5 * IQR) | (df[column] > Q3 + 1.5 * IQR)]
+  
   if outliers.empty:
     print("No outliers found.")
     return pd.DataFrame(columns = [column])
   else:
     print("Potential outliers:")
+    print(outliers)
     return(outliers)
-  
-  #a violin plot
-  plt.figure(figsize = (10, 6))
-  sns.violinplot(x = df[column])
-  plt.title('Violoin plot of ' + column)
-  plt.show()
   
 #scatter plots HAEMATOCRIT and HAEMOGLOBINS
 def plot_haematocrit_vs_haemoglobins_scatter(df):
@@ -82,7 +78,21 @@ def plot_correlation_matrix(df):
   plt.title('Correlation Matrix')
   plt.savefig('correlation_matrix.png')
   plt.show()
-
+  
+def analyse(df, column):
+  if column in df.columns:
+    min_val = df[column].min()
+    max_val = df[column].max()
+    mean_val = df[column].mean()
+    return pd.DatFrame({
+      f'min_{column}': [min_val],
+      f'max_{column}': [max_val],
+      f'mean_{column}': [mean_val]
+    })
+  else:
+    print(f"Column '{column}' not found inthe dataframe.")
+    return pd.DataFrame()
+      
 if __name__ == '__main__':
   data_file_path = 'data-ori.csv'
   df = load_data(data_file_path)
@@ -105,3 +115,11 @@ if __name__ == '__main__':
   print(outliers)
   plot_haematocrit_vs_haemoglobins_scatter(df)
   plot_correlation_matrix(df)
+  
+  #violin plot
+  column_to_analyse = 'HAEMATOCRIT'
+  outliers = identify_outliers(df, column_to_analyse)
+  plt.figure(figsize = (10, 6))
+  sns.violinplot(x = df[column_to_analyse])
+  plt.title(f'Violoin plot of of {column_to_analyse}')
+  plt.show()
