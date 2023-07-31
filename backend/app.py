@@ -3,6 +3,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from mongodb_interaction import get_all_records, get_record_by_id
+from eda import load_data, analyse
 
 app = Flask(__name__)
 CORS(app)
@@ -23,11 +24,25 @@ def record(id):
     return jsonify(record)
     
 @app.route('/analyse', methods = ['GET'])
-def analyse():
-    # df = load_data('data/data-ori.csv')
-    # histogram_data = get_age_histogram_data(df)
-    # return jsonify(histogram_data)
-    return " This endpoint will return the analysis result."
+def analyse_endpoint():
+    df = load_data('data/data-ori.csv')
+    
+    variable = request.args.get('variable')
+    # plot_type = request.args.get('plot_type')
+    
+    if variable not in [ 'HAEMATOCRIT', 'HAEMOGLOBINS', 'CRYTHROCYTE', 'LEUCOCYTE', 'THROMBOCYTE', 'MCH', 'MCHE', 'MCV', 'AGE', 'SEX', 'SOURCE']:
+        return jsonify({'error': 'Invalid variable'}), 400
+        
+    # if plot_type not in ['histogram', 'boxplot', 'violin', 'correlation']:
+    #     return jsonify({ 'error': 'Invalie plot type'}), 400
+        
+    # plot = eda.analyse(variable)
+    df = analyse(df, variable)
+    return df.to_json(orient = 'records')
+        
+    # return send_file(plot, minetype = 'image/png')
+
+    
     
 if __name__=='__main__':
     app.run(host = '0.0.0.0', debug = True)
