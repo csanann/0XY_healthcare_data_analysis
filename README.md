@@ -15,9 +15,9 @@ The data for this project is sourced from the [Patient Treatment Classification 
 
 - Data Analysis: Python (pandas, NumPy, matplotlib, seaborn, scikit-learn)
 - Data Storage: MongoDB/Mongoose
-- Deployment: AWS S3
+- Deployment: Docker, AWS EC2
 - Version Control: Git, Github
-- Backend: Python and Flask
+- Backend: Python, Flask, Gunicorn
 - Front-end Interface: React and Vite
 - TDD, BDD: pytest for unit tests, integration tests, and functional tests. BDD: BDD framework like `behave` or `pytest-bdd`. Code coverage is measured with `pytest-cov`.
 - Continuous Integration/Continuous Deployment (DI/CD): GitHub Action
@@ -26,13 +26,13 @@ The data for this project is sourced from the [Patient Treatment Classification 
 
 This project is divided into two main parts: the backend and the frontend.
 
-The backend is built with Python and Flask. It handles data processing, analysis, and storage. It also serves the results of the analysis to the frontend.
+The backend is built with Python, Flask and Gunicorn. It handles data processing, analysis, and storage. It also serves the results of the analysis to the frontend.
 
 The frontend is built with React and Vite. It provides a user interface for interacting with the data analysis results.
 
 ## Project Architecture
 
-Frontend (React + Vite) <--> Backend (Python + Flask) <--> Database (MongoDB/Mongoose)
+Frontend (React + Vite) <--> Backend (Python + Flask + Gunicorn) <--> Database (MongoDB/Mongoose)
                                      |
                                      v
                                   AWS S3 (Dataset Storage)
@@ -43,19 +43,16 @@ This project consists of a backend and a frontend, each with its own set of depe
 
 ## Backend Setup
 
-1. Install Python: `brew install python`
-2. Navigate to the `backend` directory.
-3. Create a virtual environment: `python3 -m venv venv`
-4. Activate the virtual environment: `source venv/bin/activate`
-5. Install Flask: `pip install flask`
-6. Install the Python dependencies: `pip install -r requirements.txt`
+1. Install Docker: Follow the instructions [here](https://docs.docker.com/get-docker/)
+3. Navigate to the project directory.
+4. build the Docker image: `docker build -t my-python-app .`
+5. Run the Docker container: `docker run -p 8080:5000 my-python-app`
 
 ### Frontend
 
-The frontend is a React application that uses Vite. To set up the frontend:
-
 1. Navigate to the `frontend` directory.
 2. Install the Node.js dependencies: `npm install`
+3. Run the application: `npm run dev`
 
 ## Running the Project
 
@@ -63,9 +60,9 @@ The frontend is a React application that uses Vite. To set up the frontend:
 
 To run the backend:
 
-1. Make sure you're in the `backend` directory.
-2. Make sure the virtual environment is activated.
-3. Run the application: `python main.py`
+1. Make sure you're in the project directory.
+2. Build the Docker image: `docker build -t my-python-app .`
+3. Run the Docker container: `docker run -p 8080:5000 my-python-app`
 
 ### Frontend
 
@@ -74,11 +71,10 @@ To run the frontend:
 1. Navigate to the `frontend` directory.
 2. Run the application: `npm run dev`
 
-Remember to deactivate the virtual environment when you're done working on the project: `deactivate` on macOS/Linux, `deactivate.bat` on Windows.
-
 ## Testing
 
-Tests are located in the `tests` directories in both the `backend` and `frontend` directories. To run the tests, navigate to the respective directory and run:
+Tests are located in the `tests` directories in both the `backend` and `frontend` directories. 
+To run the tests, navigate to the respective directory and run:
 
 ```
 pytest
