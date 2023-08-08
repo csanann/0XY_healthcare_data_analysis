@@ -1,7 +1,35 @@
 # Python
 *.pyc
 __pycache__
-venv
+myenv/
+venv/
+.venv/
 
 # JavaScript
 node_modules/
+.npm/
+package-lock.jsonyarn.lock
+.pnp/
+.pnp.js
+
+#react, vite and production build outputs
+/build
+/frontend/dist/
+
+# environment config
+.env
+/flaskenv
+
+#docker and py related
+*.log
+
+#misc
+DS_Store
+
+#testing
+/coverage
+pytest_cache/
+
+#others
+Todo.md
+test.html
