@@ -1,0 +1,11 @@
+#docker-compose.yml
+
+version: '3'
+
+services:
+  0xy_healthcare_data_analysis:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080"
