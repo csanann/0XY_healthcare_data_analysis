@@ -2,7 +2,18 @@
 
 from pymongo import MongoClient
 import pandas as pd
-from pymongo.collection import Collection
+import os
+from dotenv import load_dotenv
+
+load_dotenv(dotenv_path="./.env")
+
+MONGODB_USERNAME = os.environ.get('MONGODB_USERNAME')
+MONGODB_PASSWORD = os.environ.get('MONGODB_PASSWORD')
+MONGODB_URI = f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@cluster.mongodb.net/test?retryWrites=true&w=majority"
+
+client = MongoClient(MONGODB_URI)
+db = client['heath_records_db']
+
 
 def load_data_to_db(data_filepath):
   client = MongoClient('mongodb://localhost:27017/')
