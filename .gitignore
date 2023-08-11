@@ -4,6 +4,7 @@ __pycache__
 myenv/
 venv/
 .venv/
+dist/
 
 # JavaScript
 node_modules/
