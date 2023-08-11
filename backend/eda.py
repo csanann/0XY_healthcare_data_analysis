@@ -3,6 +3,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 def load_data(file_path):
   df = pd.read_csv(file_path)
@@ -27,7 +28,7 @@ def plot_age_histogram(df):
   plt.ylabel('Frequency')
   plt.title('Age Distribution')
   plt.grid(True)
-  plt.savefig('age_histograme.png')
+  plt.savefig('visualisations/age_histograme.png')
   plt.show()
 
 #Box plots HAEMATOCRIT
@@ -38,7 +39,7 @@ def plot_haematocrit_boxplot(df):
   plt.ylabel('Value')
   plt.title('HAEMATOCRIT Box Plot')
   plt.grid(True)
-  plt.savefig('heametocrit_boxplot.png')
+  plt.savefig('visualisations/heametocrit_boxplot.png')
   plt.show()
   
 def identify_outliers(df, column):
@@ -79,24 +80,42 @@ def plot_correlation_matrix(df):
   plt.savefig('correlation_matrix.png')
   plt.show()
   
+def generate_basic_statistics(df):
+  return df.describe().to_dict()
+  
+def generate_all_visualisations(df):
+  for column in df.columns:
+    if df[column].dtype in ['int64', 'float64']:
+      plt.figure(figsize=(8, 6))
+      sns.distplot(df[column], bins=30)
+      plt.title(f'Distribution of {column}')
+      plt.savefig(f'visualisations/{column}_distribution.png')
+      plt.close()
+  
 def analyse(df, column):
   if column in df.columns:
     min_val = df[column].min()
     max_val = df[column].max()
     mean_val = df[column].mean()
-    return pd.DatFrame({
-      f'min_{column}': [min_val],
-      f'max_{column}': [max_val],
-      f'mean_{column}': [mean_val]
-    })
+    median_val = df[column].median()
+    std_val = df[column].std()
+    return {
+      f'min_{column}': min_val,
+      f'max_{column}': max_val,
+      f'mean_{column}': mean_val,
+      f'median_{column}': median_val,
+      f'sta_{column}': std_val
+    }
   else:
-    print(f"Column '{column}' not found inthe dataframe.")
-    return pd.DataFrame()
+    raise ValueError(f"Column '{column}' not found in the dataframe.")
       
 if __name__ == '__main__':
   data_file_path = 'data-ori.csv'
   df = load_data(data_file_path)
   df = convert_binary_to_numerical(df)
+
+  if not os.path.exists('public/visualisations'):
+    os.makedirs('public/visualisations')
 
   print(df.head())
   print(df.tail())
@@ -123,3 +142,4 @@ if __name__ == '__main__':
   sns.violinplot(x = df[column_to_analyse])
   plt.title(f'Violoin plot of of {column_to_analyse}')
   plt.show()
+  
