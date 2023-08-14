@@ -3,7 +3,7 @@
 from pymongo import MongoClient
 import pandas as pd
 import os
-from eda import load_data
+from backend.eda import load_data
 from dotenv import load_dotenv
 
 load_dotenv(dotenv_path="./.env")
