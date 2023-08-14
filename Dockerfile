@@ -5,7 +5,8 @@ WORKDIR /frontend
 COPY frontend/package.json ./
 COPY frontend/package-lock.json ./
 COPY frontend/src ./src
-COPY frontend/index.html ./
+
+COPY backend/static/index.html ./
 COPY frontend/vite.config.js ./
 RUN npm install
 RUN npm run build
@@ -13,10 +14,10 @@ RUN npm run build
 # build the Flask api backend
 FROM python:3.7.16
 WORKDIR /app
-COPY --from=react-build /frontend/dist ./dist
+COPY --from=react-build /frontend/dist ./backend/static/dist
 COPY main.py ./main.py
 
-RUN mkdir ./backend
+COPY main.py ./main.py
 COPY backend/ ./backend
 
 RUN python -m pip install --upgrade pip
