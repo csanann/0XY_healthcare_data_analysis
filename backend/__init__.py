@@ -17,7 +17,7 @@ def create_app():
 
     @app.route("/", methods=['GET'])
     def home():
-        return app.send_static_file('index.html')
+        return app.send_static_file('backend/static/dist', 'index.html')
 
     @app.route('/records', methods=['GET'])
     def records():

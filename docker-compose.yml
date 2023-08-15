@@ -10,7 +10,7 @@ services:
     - "8080:8080"
     environment:
       - MONGODB_URI=mongodb://mongo:27017/
-    depends_on:
+    depends_on: #note, only ensures the order of service startup, not fully initialised, implement if any issues, when Flask app trys to connect to MongoDB before it's ready
       - mongo
       
   mongo:

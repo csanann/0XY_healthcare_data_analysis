@@ -7,7 +7,7 @@ function DataFetcher() {
     const [data, setData] = useState(null);
     
     useEffect(() => {
-        axios.get('http://localhost:5000/records')
+        axios.get('http://0xy_healthcare_data_analysis:8080/records')
         .then(response => {
             setData(response.data);
         })
