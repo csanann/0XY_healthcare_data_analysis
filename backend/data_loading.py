@@ -1,7 +1,14 @@
 #file: 0XY_healthcare_data_analysis/backend/data_loading.py
 
 import pandas as pd
+from sklearn.model_selection import train_test_split
 
 def load_data(filepath):
   df = pd.read_csv(filepath)
-  return df
+  
+  #split data into typical train/val/test
+  df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
+  df_val, df_test = train_test_split(df_test, test_size=0.5, random_state=42)
+  
+  return df_train, df_val, df_test
+  
