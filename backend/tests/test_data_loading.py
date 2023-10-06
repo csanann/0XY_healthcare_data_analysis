@@ -1,7 +1,10 @@
 # file: 0XY_healthcare_data_analysis/backend/tests/test_data_loading.py
 
+import sys
+sys.path.insert(0, '/home/runner/work/0XY_healthcare_data_analysis')
+
 import pandas as pd
-from data_loading import load_data
+from backend.data_loading import load_data
 
 def test_load_data():
     data_file_path = 'data/data-ori.csv'
