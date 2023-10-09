@@ -7,10 +7,11 @@ import pandas as pd
 from backend.data_loading import load_data
 
 def test_load_data():
-    data_file_path = 'data/data-ori.csv'
+    data_file_path = '/data/data-ori.csv'
     df = load_data(data_file_path)
     
     assert isinstance(df, pd.DataFrame)
+    
     assert df.shape[0] > 0
     assert df.shape[1] > 0
     
