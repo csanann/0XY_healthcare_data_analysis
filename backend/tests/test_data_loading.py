@@ -3,11 +3,11 @@
 import sys
 import pandas as pd
 from backend.data_loading import load_data
-
-sys.path.insert(0, '/home/runner/work/0XY_healthcare_data_analysis')
+import os
 
 def test_load_data():
-    with open('/backend/data/data-ori.csv', 'r') as f:
+    data_file_path = os.path.join(os.path.dirname(__file__), '../data/data-ori.csv')
+    with open(data_file_path, 'r') as f:
         df = load_data(f)
     
     assert isinstance(df, pd.DataFrame)
