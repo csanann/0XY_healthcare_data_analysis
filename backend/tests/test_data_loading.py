@@ -10,6 +10,10 @@ def test_load_data():
     with open(data_file_path, 'r') as f:
         df = load_data(f)
     
+    #check bug
+    print(df.head())
+    print(df.info())
+    
     assert isinstance(df, pd.DataFrame)
     
     assert df.shape[0] > 0
