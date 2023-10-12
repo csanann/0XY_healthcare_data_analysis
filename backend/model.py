@@ -11,10 +11,13 @@ def train_model(data_path):
     
     model = LinearRegression()
     model.fit(X_train, y_train)
+    
     y_pred = model.predict(X_val)
+    
     r2 = r2_score(y_val, y_pred)
     mse = mean_squared_error(y_val, y_pred)
-    return model, r2, mse
+    
+    return model, r2, mse, y_pred
     
 def predict(model, X):
     return model.predict(X)
@@ -27,3 +30,6 @@ def load_model(model_path):
 def save_model(model, model_path):
     with open(model_path, 'wb') as f:
         pickle.dump(model,f)
+        
+if __name__ == "__main__":
+    pass
