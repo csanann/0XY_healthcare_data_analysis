@@ -25,7 +25,7 @@ def test_predict():
     y_train_sample = pd.Series([0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9, 2.1, 2.3])
     
     model = LinearRegression()
-    model fit(X_train_sample, y_train_sample)
+    model.fit(X_train_sample, y_train_sample)
     X_val_sample = pd.DataFrame({'feature1': [11, 12, 13, 14, 15], 'feature2': [1.1, 1.2, 1.3, 1.4, 1.5]})
     y_pred = predict(model, X_val_sample)
     
