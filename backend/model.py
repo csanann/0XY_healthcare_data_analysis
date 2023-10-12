@@ -1,7 +1,8 @@
 #/0XY_healthcare_data_analysis/backend/model.py
 
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score import pickle
+from sklearn.metrics import mean_squared_error, r2_score 
+import pickle
 from backend.data_loading import load_data
 
 def train_model(data_path):
