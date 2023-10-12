@@ -4,7 +4,7 @@ import os
 import pandas as pd
 import numpy as np
 import pytest
-from backend.model import train_model, predict
+from backend.model import train_model, predict, save_model, load_model
 from sklearn.linear_model import LinearRegression
 
 X_train_sample = pd.DataFrame({'feature1':[1, 2, 3, 4, 5], 'feature2': [0.1, 0.2, 0.3, 0.4, 0.5]})
@@ -25,6 +25,17 @@ def test_predict():
     y_pred = predict(model, X_val_sample)
     
     assert y_pred.shape == y_val_sample.shape
+    
+def test_save_and_load_model(tmp_path):
+    model, _, _ = train_model(X_train_sample, y_train_sample, X_val_sample, y_val_sample)
+    model_path = os.path.join(tmp_path, 'test_model.pkl')
+    
+    save_model(model, model_path)
+    loaded_model = load_model(model_path)
+    
+    assert isinstance(loaded_model, LinearRegression)
+    assert model.coef_.all() == loaded_model.coef_.all()
+    assert model.intercept_ == loaded_model.intercept_
     
 if __name__ == "__main__":
     pytest.main([__file__])
