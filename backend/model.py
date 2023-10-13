@@ -1,24 +1,17 @@
-#/0XY_healthcare_data_analysis/backend/model.py
-
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score 
-import pickle
+from sklearn.metrics import mean_squared_error, r2_score
 from backend.data_loading import load_data
+import pickle
 
 def train_model(data_path):
-    
     X_train, X_val, y_train, y_val = load_data(data_path)
-    
     model = LinearRegression()
     model.fit(X_train, y_train)
-    
     y_pred = model.predict(X_val)
-    
     r2 = r2_score(y_val, y_pred)
     mse = mean_squared_error(y_val, y_pred)
-    
     return model, r2, mse, y_pred
-    
+
 def predict(model, X):
     return model.predict(X)
 
@@ -29,7 +22,4 @@ def load_model(model_path):
 
 def save_model(model, model_path):
     with open(model_path, 'wb') as f:
-        pickle.dump(model,f)
-        
-if __name__ == "__main__":
-    pass
+        pickle.dump(model, f)
