@@ -14,7 +14,7 @@ def load_data(file_buffer):
   df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
   df_val, df_test = train_test_split(df_test, test_size=0.5, random_state=42)
   
-  X_train, y_train = df_train.drop(colums=['target']), df_train['target']
+  X_train, y_train = df_train.drop(columns=['target']), df_train['target']
   X_val, y_val = df_val.drop(columns=['target']), df_val['target']
   
   return X_train, X_val, y_train, y_val
